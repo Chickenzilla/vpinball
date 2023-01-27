@@ -737,8 +737,8 @@ void Player::OnInitialUpdate()
     mixer_init(GetHwnd());
     hid_init();
 
-    if (!m_fullScreen) // see above
-        SetCursorPos(400, 999999);
+//    if (!m_fullScreen) // see above
+//        SetCursorPos(400, 999999);
 
     const HRESULT result = Init();
     if (result != S_OK)
@@ -770,6 +770,8 @@ void Player::Shutdown()
       m_ptable->m_BG_current_set ^= 1;
 
    m_pininput.UnInit();
+
+   ::ShowCursor(TRUE);
 
    SAFE_BUFFER_RELEASE(m_ballVertexBuffer);
    SAFE_BUFFER_RELEASE(m_ballIndexBuffer);
@@ -5273,7 +5275,7 @@ void Player::Render()
          {
             ShowCursor(TRUE);
             option = DialogBox(g_pvp->theInstance, MAKEINTRESOURCE(IDD_GAMEPAUSE), GetHwnd(), PauseProc);
-            if(option != ID_DEBUGWINDOW)
+            if(option == ID_RESUME)
                while(ShowCursor(FALSE)>=0) ;
          }
          else //m_closeType == all others
